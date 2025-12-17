@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典飞机大战 - Plane War</title>
+    <meta name="description" content="一个简单的经典飞机大战 HTML5 网页小游戏">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="ui-layer">
+            <div id="start-screen" class="overlay">
+                <h1>经典飞机大战</h1>
+                <p>使用 WASD 或 方向键 移动，空格键 发射</p>
+                <button id="start-btn" class="btn-primary">开始游戏</button>
+            </div>
+
+            <div id="hud" class="hidden">
+                <div class="score-container">得分: <span id="score">0</span></div>
+            </div>
+
+            <div id="game-over-screen" class="overlay hidden">
+                <h2>游戏结束</h2>
+                <p>最终得分: <span id="final-score">0</span></p>
+                <button id="restart-btn" class="btn-primary">重新开始</button>
+            </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
