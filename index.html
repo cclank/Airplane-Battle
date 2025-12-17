@@ -18,11 +18,18 @@
 
             <div id="hud" class="hidden">
                 <div class="score-container">得分: <span id="score">0</span></div>
+                <div class="best-container">纪录保持者: <span id="best-name">无</span> (<span id="best">0</span>)</div>
             </div>
 
             <div id="game-over-screen" class="overlay hidden">
                 <h2>游戏结束</h2>
-                <p>最终得分: <span id="final-score">0</span></p>
+                <div id="new-record-msg" class="hidden">
+                    <h3 class="highlight">新纪录！</h3>
+                    <p>请输入你的大名:</p>
+                    <input type="text" id="player-name-input" maxlength="10" placeholder="你的名字">
+                </div>
+                <p>本次得分: <span id="final-score">0</span></p>
+                <p>最高纪录: <span id="best-score">0</span></p>
                 <button id="restart-btn" class="btn-primary">重新开始</button>
             </div>
         </div>

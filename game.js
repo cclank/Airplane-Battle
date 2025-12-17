@@ -5,9 +5,14 @@
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
+const bestElement = document.getElementById('best');
+const bestNameElement = document.getElementById('best-name');
 const finalScoreElement = document.getElementById('final-score');
+const bestScoreElement = document.getElementById('best-score');
 const startScreen = document.getElementById('start-screen');
 const gameOverScreen = document.getElementById('game-over-screen');
+const newRecordMsg = document.getElementById('new-record-msg');
+const playerNameInput = document.getElementById('player-name-input');
 const hud = document.getElementById('hud');
 const startBtn = document.getElementById('start-btn');
 const restartBtn = document.getElementById('restart-btn');
@@ -23,6 +28,8 @@ const BULLET_HEIGHT = 15;
 // Game state
 let gameActive = false;
 let score = 0;
+let bestScore = parseInt(localStorage.getItem('planeWarBestScore')) || 0;
+let bestName = localStorage.getItem('planeWarBestName') || '无';
 let player;
 let bullets = [];
 let enemies = [];
@@ -194,6 +201,12 @@ class Enemy {
 }
 
 function initGame() {
+    // Save previous record name if it was a new record
+    if (score > 0 && score === bestScore && playerNameInput.value.trim() !== '') {
+        bestName = playerNameInput.value.trim();
+        localStorage.setItem('planeWarBestName', bestName);
+    }
+
     player = new Player();
     bullets = [];
     enemies = [];
@@ -203,6 +216,8 @@ function initGame() {
     }
     score = 0;
     scoreElement.textContent = score;
+    bestElement.textContent = bestScore;
+    bestNameElement.textContent = bestName;
     gameActive = true;
     lastEnemySpawn = Date.now();
 
@@ -215,7 +230,20 @@ function initGame() {
 
 function gameOver() {
     gameActive = false;
+
+    if (score > bestScore) {
+        bestScore = score;
+        localStorage.setItem('planeWarBestScore', bestScore);
+        newRecordMsg.classList.remove('hidden');
+        // Reset name input for new record
+        playerNameInput.value = '';
+        playerNameInput.focus();
+    } else {
+        newRecordMsg.classList.add('hidden');
+    }
+
     finalScoreElement.textContent = score;
+    bestScoreElement.textContent = bestScore;
     gameOverScreen.classList.remove('hidden');
 }
 
